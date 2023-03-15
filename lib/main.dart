@@ -39,15 +39,6 @@ class _QuizPageState extends State<QuizPage> {
     //'approximately one quarter of bones are in human feet',
     //'smug\'s blood is red',
   //];
-
-  int questionnumber = 0;
-
-  //List<bool> answers=[
-    //false,
-    //true,
-    //true,
-  //];
-  //Questions q1 = Questions(q:'you can lead a cow downstairs not upstairs',a:false);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionbank[questionnumber].questionsText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -83,7 +74,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                bool correctAnswer=quizBrain.questionbank[questionnumber].questionsAnswer;
+                bool correctAnswer=quizBrain.getQuestionAnswer();
 
                 if(correctAnswer ==true){
                   print('user got right');
@@ -92,7 +83,7 @@ class _QuizPageState extends State<QuizPage> {
                   print('user got wrong');
                 }
                 setState(() {
-                  questionnumber++;
+                  quizBrain.nextQuestion();
                 });
 
               },
@@ -116,7 +107,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                bool correctAnswer=quizBrain.questionbank[questionnumber].questionsAnswer;
+                bool correctAnswer=quizBrain.getQuestionAnswer();
 
                 if(correctAnswer ==false){
                   print('user got right');
@@ -125,7 +116,7 @@ class _QuizPageState extends State<QuizPage> {
                   print('user got wrong');
                 }
                 setState(() {
-                  questionnumber++;
+                 quizBrain.nextQuestion();
                 });
 
 

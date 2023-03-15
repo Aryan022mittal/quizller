@@ -1,7 +1,8 @@
 import 'questions.dart';
 
 class QuizBrain{
-  List<Questions> questionbank =[
+  int _questionnumber = 0;
+  List<Questions> _questionbank =[
     Questions(q: 'Some cats are actually allergic to humans', a: true),
     Questions(q: 'You can lead a cow down stairs but not up stairs.',a: false),
     Questions(q: 'Approximately one quarter of human bones are in the feet.',a: true),
@@ -28,4 +29,21 @@ class QuizBrain{
         q: 'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         a: true),
   ];
+
+  void nextQuestion(){
+    if (_questionnumber<_questionbank.length-1){
+      _questionnumber++;
+    }
+    else{
+      print('u have completed ur quiz');
+    }
+  }
+
+  String getQuestionText(){
+    return _questionbank[_questionnumber].questionsText;
+  }
+
+  bool getQuestionAnswer(){
+    return _questionbank[_questionnumber].questionsAnswer;
+  }
 }

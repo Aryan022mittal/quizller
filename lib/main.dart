@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'questions.dart';
 import 'quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -33,6 +34,43 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeper =[];
+
+  void checkAnswer (bool userPickedAnswer){
+    bool correctAnswer=quizBrain.getQuestionAnswer();
+    setState(() {
+      if (quizBrain.isFinished() == true) {
+        //TODO Step 4 Part A - show an alert using rFlutter_alert,
+
+        //This is the code for the basic alert from the docs for rFlutter Alert:
+        //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
+
+        //Modified for our purposes:
+        Alert(
+          context: context,
+          title: 'Finished!',
+          desc: 'You\'ve reached the end of the quiz.',
+        ).show();
+
+        //TODO Step 4 Part C - reset the questionNumber,
+        quizBrain.reset();
+
+        //TODO Step 4 Part D - empty out the scoreKeeper.
+        scoreKeper = [];
+      }
+
+      else{
+        if (userPickedAnswer==correctAnswer){
+      scoreKeper.add(Icon(Icons.check,color: Colors.green,));
+      print('user got right');
+    }
+    else{
+      scoreKeper.add(Icon(Icons.close,color: Colors.red,));
+      print('user got wrong');
+    }
+
+      quizBrain.nextQuestion();
+    }});
+  }
 
   //List<String> question =[
     //'you can lead a cow downstairs not upstairs',
@@ -74,17 +112,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                bool correctAnswer=quizBrain.getQuestionAnswer();
-
-                if(correctAnswer ==true){
-                  print('user got right');
-                }
-                else{
-                  print('user got wrong');
-                }
-                setState(() {
-                  quizBrain.nextQuestion();
-                });
+                    checkAnswer(true);
 
               },
               style: TextButton.styleFrom(
@@ -107,17 +135,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                bool correctAnswer=quizBrain.getQuestionAnswer();
-
-                if(correctAnswer ==false){
-                  print('user got right');
-                }
-                else{
-                  print('user got wrong');
-                }
-                setState(() {
-                 quizBrain.nextQuestion();
-                });
+                checkAnswer(false);
 
 
               },
